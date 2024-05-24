@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import { initialDocuments } from "./api/documents";
+import { initialFoulders } from "./api/foulders";
+import { Documents } from "./pages/Documents";
+import { Document, Foulder } from "./types";
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const [foulders] = useState<Foulder[]>(initialFoulders);
+  const [documents] = useState<Document[]>(initialDocuments);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
+    <div className="w-screen h-screen min-h-screen overflow-x-hidden overflow-y-hidden flex flex-row">
+      <aside></aside>
+      <main className="w-full h-full min-h-full max-h-full ">
+        <Routes>
+          <Route
+            path="/"
+            element={<Documents foulders={foulders} documents={documents} />}
+          />
+        </Routes>
+      </main>
+    </div>
+  );
+};
