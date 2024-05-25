@@ -10,8 +10,8 @@ export const App = () => {
   const [documents] = useState<Document[]>(initialDocuments);
 
   return (
-    <div className="w-screen h-screen min-h-screen overflow-x-hidden overflow-y-hidden flex flex-row">
-      <aside></aside>
+    <div className="w-screen h-screen min-h-screen overflow-x-hidden overflow-y-hidden flex flex-row bg-background text-primary ">
+      {/* <aside className="w-full max-w-[300px] h-full bg-card"></aside> */}
       <main className="w-full h-full min-h-full max-h-full ">
         <Routes>
           <Route
@@ -20,6 +20,7 @@ export const App = () => {
           />
         </Routes>
       </main>
+      {/* <section className="w-full max-w-[300px] h-full bg-card"></section> */}
     </div>
   );
 };
