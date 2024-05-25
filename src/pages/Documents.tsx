@@ -11,7 +11,7 @@ export const Documents = (props: Props) => {
   const { foulders, documents } = props;
 
   return (
-    <div className="m-auto w-full h-full max-w-[calc(1000px+8px)] flex items-center justify-start text-center flex-col gap-12 py-4 px-4 overflow-y-auto">
+    <div className="m-auto w-full h-full max-w-[calc(1200px+8px)] flex items-center justify-start text-center flex-col gap-12 py-4 px-4 overflow-y-auto">
       {/* Header */}
       <div className="flex justify-between w-full  md:items-end flex-col md:flex-row ">
         <div className="text-start">
@@ -62,10 +62,10 @@ export const Documents = (props: Props) => {
       </div>
       <div className="flex w-full flex-col items-start gap-6">
         <h4 className="text-2xl">Documentos</h4>
-        <div className="w-full h-max place-items-center grid  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="w-full h-max place-items-center grid  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
           {documents.map((document, index) => (
             <Card
-              className={`group w-[230px] h-[120px] flex flex-col  hover:shadow-lg cursor-pointer rounded-2xl overflow-hidden transition-all duration-1000`}>
+              className={`group w-[250px] h-[120px] flex flex-col  hover:shadow-lg cursor-pointer rounded-2xl overflow-hidden transition-all duration-1000`}>
               <CardHeader
                 key={document.id}
                 className={`bg-gradient-${
