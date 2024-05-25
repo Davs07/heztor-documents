@@ -1,14 +1,16 @@
+import { BetweenHorizontalEnd, ChevronFirst, CircleX, Menu } from "lucide-react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { initialDocuments } from "./api/documents";
 import { initialFoulders } from "./api/foulders";
+import { Document } from "./pages/Document";
 import { Documents } from "./pages/Documents";
-import { Document, Foulder } from "./types";
-import { BetweenHorizontalEnd, ChevronFirst, CircleX, Menu, SquareMenu } from "lucide-react";
+import { Document as DocumentType, Foulder } from "./types";
+import { Sidebar } from "./components/Sidebar";
 
 export const App = () => {
   const [foulders] = useState<Foulder[]>(initialFoulders);
-  const [documents] = useState<Document[]>(initialDocuments);
+  const [documents] = useState<DocumentType[]>(initialDocuments);
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -22,6 +24,7 @@ export const App = () => {
               setOpenSidebar(false);
             }}
           />
+          <Sidebar/>
         </aside>
       ) : (
         <Menu
@@ -35,6 +38,10 @@ export const App = () => {
           <Route
             path="/"
             element={<Documents foulders={foulders} documents={documents} />}
+          />
+          <Route
+            path="/document"
+            element={<Document/>}
           />
         </Routes>
       </main>
