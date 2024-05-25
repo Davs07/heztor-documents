@@ -64,11 +64,14 @@ export const Documents = (props: Props) => {
         <h4 className="text-2xl">Documentos</h4>
         <div className="w-full h-max place-items-center grid  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {documents.map((document, index) => (
-            <Card className="w-[230px] h-[120px] flex flex-col  hover:shadow-lg cursor-pointer rounded-2xl overflow-hidden">
+            <Card
+              className={`group w-[230px] h-[120px] flex flex-col  hover:shadow-lg cursor-pointer rounded-2xl overflow-hidden transition-all duration-1000`}>
               <CardHeader
                 key={document.id}
-                className={`bg-gradient-${index + 1}00 h-full `}></CardHeader>
-              <div className="py-2 w-full grid place-items-center">
+                className={`bg-gradient-${
+                  index + 1
+                }00 h-full group-hover:h-16 `}></CardHeader>
+              <div className="w-full grid place-items-center group-hover:h-full bg-card  rounded-2xl py-2 transition-all group-hover:duration-300 transform   ">
                 <p> {document.name}</p>
               </div>
             </Card>
