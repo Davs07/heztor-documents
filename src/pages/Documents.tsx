@@ -1,5 +1,5 @@
 import { Card, CardHeader } from "@/components/ui/card";
-import { ChevronDown, Folder, LayoutDashboard } from "lucide-react";
+import { ChevronDown, Folder, LayoutGrid } from "lucide-react";
 import { Document, Foulder } from "../types";
 
 interface Props {
@@ -24,7 +24,7 @@ export const Documents = (props: Props) => {
             <p>Esta semana</p>
           </button>
           <button className="btn btn-primary flex flex-row">
-            <LayoutDashboard />
+            <LayoutGrid />
             <p>Cambiar vista</p>
           </button>
         </div>

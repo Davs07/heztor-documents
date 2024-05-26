@@ -8,30 +8,75 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { initialDocuments } from "./api/documents";
 import { initialFoulders } from "./api/foulders";
-import { Document } from "./pages/Document";
 import { Documents } from "./pages/Documents";
-import { Document as DocumentType, Foulder } from "./types";
+import { Document as DocumentType, Foulder, Id } from "./types";
 import { Sidebar } from "./components/Sidebar";
+import { Document } from "./pages/Document";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { cn } from "./lib/utils";
+import { Button } from "./components/ui/button";
 
 export const App = () => {
   const [foulders] = useState<Foulder[]>(initialFoulders);
-  const [documents] = useState<DocumentType[]>(initialDocuments);
+  const [docs, setDocs] = useState<DocumentType[]>(initialDocuments);
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  return (
-    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto">
-      {/* Sidebar */}
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isMediumDevice = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 992px)"
+  );
+  const isLargeDevice = useMediaQuery(
+    "only screen and (min-width : 993px) and (max-width : 1200px)"
+  );
+  const isExtraLargeDevice = useMediaQuery(
+    "only screen and (min-width : 1201px)"
+  );
 
-      <Menu
-        className="absolute top-4 left-4 cursor-pointer"
-        onClick={() => setOpenSidebar(true)}
-      />
+  const onChangeDocument = (id: Id, content: DocumentType["content"]) => {
+    setDocs(
+      docs.map((document) => {
+        if (document.id === id) {
+          return { ...document, content: content };
+        }
+        return document;
+      })
+    );
+  };
+
+  return (
+    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 ">
+      {/* Sidebar */}
+      <div
+        className={cn(
+          "fixed top-0 left-0 w-full h-[60px] bg-transparent",
+          isSmallDevice && "bg-card"
+        )}>
+        <Button
+          className="fixed top-2 left-2 cursor-pointer bg-card text-primary"
+          variant={"icon"}
+          size={"icon3"}
+          onClick={() => setOpenSidebar(true)}>
+          <Menu size={20} />
+        </Button>
+
+        {!openMenu && (
+          <Button
+            className="fixed top-2 right-2 cursor-pointer bg-card text-primary "
+            variant={"icon"}
+            size={"icon3"}
+            onClick={() => setOpenMenu(true)}>
+            <BetweenHorizontalEnd size={20} />
+          </Button>
+        )}
+      </div>
       <aside
-        className={`fixed top-0 left-0 h-full bg-card transition-transform transform z-[9999999] ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        } max-w-xs w-full`}>
+        className={cn(
+          `fixed top-0 left-0 h-full bg-card transition-transform transform z-[99999999] ${
+            openSidebar ? "translate-x-0" : "-translate-x-full"
+          } max-w-xs w-full`
+        )}>
         {openSidebar && (
           <ChevronFirst
             className="m-4 cursor-pointer"
@@ -42,15 +87,20 @@ export const App = () => {
       </aside>
 
       {/* Main content */}
-      <main className="flex-grow p-4">
+      <main className="flex-grow py-16 px-0">
         <Routes>
           <Route
             path="/"
-            element={<Documents foulders={foulders} documents={documents} />}
+            element={<Documents foulders={foulders} documents={docs} />}
           />
           <Route
             path="/document"
-            element={<Document document={documents[0]} />}
+            element={
+              <Document
+                onChangeDocument={onChangeDocument}
+                initialDocument={docs[1]}
+              />
+            }
           />
         </Routes>
       </main>
@@ -65,13 +115,6 @@ export const App = () => {
           onClick={() => setOpenMenu(false)}
         />
       </section>
-
-      {!openMenu && (
-        <BetweenHorizontalEnd
-          className="absolute top-4 right-4 cursor-pointer"
-          onClick={() => setOpenMenu(true)}
-        />
-      )}
     </div>
   );
 };
