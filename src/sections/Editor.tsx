@@ -5,6 +5,7 @@ import "@blocknote/mantine/style.css";
 import { useState } from "react";
 import { Document as DocumentType, Id } from "@/types";
 import { PartialBlock } from "@blocknote/core";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 interface Props {
   initialDocument: DocumentType;
@@ -83,13 +84,18 @@ export const Editor = ({ initialDocument, onChangeDocument }: Props) => {
     fontFamily: "Inter, sans-serif",
   };
 
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isMediumDevice = useMediaQuery(
+    "only screen and (min-width : 769px) and (max-width : 992px)"
+  );
+
   // Renders the editor instance, and its contents as Markdown below.
   return (
-    <div className="w-full h-max">
+    <div className="w-full  h-max">
       <BlockNoteView
         theme={customTheme}
         style={{
-          width: "100%",
+          width: isMediumDevice || isSmallDevice ? "115%" : "107%",
           height: "100%",
         }}
         editor={editor}

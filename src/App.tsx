@@ -46,11 +46,11 @@ export const App = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 ">
+    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 dark ">
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed top-0 left-0 w-full h-[60px] bg-transparent",
+          "fixed top-0 left-0 w-full h-[52px] bg-transparent",
           isSmallDevice && "bg-card"
         )}>
         <Button
@@ -72,10 +72,11 @@ export const App = () => {
         )}
       </div>
       <aside
+        onBlur={() => setOpenMenu(false)}
         className={cn(
-          `fixed top-0 left-0 h-full bg-card transition-transform transform z-[99999999] ${
-            openSidebar ? "translate-x-0" : "-translate-x-full"
-          } max-w-xs w-full`
+          "relative top-0 left-0 h-full bg-card transition-transform transform duration-300 z-[99999999]  max-w-xs w-full",
+          openSidebar ? "translate-x-0" : "hidden ",
+          isMediumDevice || isSmallDevice ? "fixed " : "translate-x-[-5%]"
         )}>
         {openSidebar && (
           <ChevronFirst

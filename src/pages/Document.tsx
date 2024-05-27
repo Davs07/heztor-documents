@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Editor } from "@/sections/Editor";
 import { Document as DocumentType, Id } from "@/types";
@@ -14,13 +15,14 @@ export const Document = ({ initialDocument, onChangeDocument }: Props) => {
         <div className="w-full h-48 bg-gradient-700 rounded-2xl"></div>
       </div>
 
-      <div className="w-full h-full">
-        <Textarea
-          className="w-full max-h-[72px]  min-h-max text-5xl font-bold border-none focus:outline-none focus:ring-0 resize-none focus:border-transparent focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
-          placeholder="Sin título"
-          defaultValue={initialDocument.name}
-        />
+      <Input
+        className="w-full max-h-[90px] h-[86px] min-h-max text-6xl font-bold border-none focus:outline-none focus:ring-0 resize-none focus:border-transparent focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
+        placeholder="Sin título"
+        defaultValue={initialDocument.name}
+      />
+      <div className="w-full max-w-[100vw] h-full ml-[-3em]">
         <Editor
+          key={initialDocument.id}
           initialDocument={initialDocument}
           onChangeDocument={onChangeDocument}
         />
