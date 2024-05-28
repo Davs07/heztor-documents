@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
+import UserOptions from "@/sections/UserOptions";
 import { ChevronDown, Folder, LayoutGrid } from "lucide-react";
 import { Document, Foulder } from "types";
 
@@ -27,6 +29,11 @@ export const Documents = (props: Props) => {
             <LayoutGrid />
             <p>Cambiar vista</p>
           </button>
+
+          <Button>
+            <UserOptions/>
+          </Button> 
+          
         </div>
       </div>
 

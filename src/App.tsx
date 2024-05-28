@@ -4,6 +4,7 @@ import {
   ChevronFirst,
   CircleX,
   Menu,
+  PanelLeft,
 } from "lucide-react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -15,6 +16,8 @@ import { Button } from "./components/ui/button";
 import { cn } from "./lib/utils";
 import { Document } from "./pages/Document";
 import { Documents } from "./pages/Documents";
+import { Prueba } from "./pages/Prueba";
+import { Dialog } from "./components/ui/dialog";
 
 export const App = () => {
   const [foulders] = useState<Foulder[]>(initialFoulders);
@@ -46,7 +49,7 @@ export const App = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4  dark">
+    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 dark ">
       {/* Sidebar */}
       <div
         className={cn(
@@ -74,12 +77,13 @@ export const App = () => {
       <aside
         onBlur={() => setOpenMenu(false)}
         className={cn(
-          "relative top-0 left-0 h-full bg-card transition-transform transform duration-300 z-[99999999]  max-w-xs w-full",
+          "relative top-0 left-0 h-full bg-card transition-transform transform duration-300 z-[9]  max-w-xs w-full",
           openSidebar ? "translate-x-0" : "hidden ",
           isMediumDevice || isSmallDevice ? "fixed " : "translate-x-[-5%]"
         )}>
         {openSidebar && (
-          <ChevronFirst
+          <PanelLeft
+            width={24}
             className="absolute z-[999] m-4 left-64 cursor-pointer"
             onClick={() => setOpenSidebar(false)}
           />
@@ -94,6 +98,7 @@ export const App = () => {
             path="/"
             element={<Documents foulders={foulders} documents={docs} />}
           />
+          <Route path="/prueba" element={<Prueba />} />
           <Route
             path="/document"
             element={
@@ -108,7 +113,7 @@ export const App = () => {
 
       {/* Right Menu */}
       <section
-        className={`fixed top-0 right-0 h-full bg-card transition-transform transform z-[9999999] ${
+        className={`fixed top-0 right-0 h-full bg-card transition-transform transform z-[9] ${
           openMenu ? "translate-x-0" : "translate-x-full"
         } max-w-xs w-full`}>
         <CircleX
