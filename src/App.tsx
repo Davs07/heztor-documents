@@ -1,7 +1,6 @@
 import { useMediaQuery } from "@uidotdev/usehooks";
 import {
   BetweenHorizontalEnd,
-  ChevronFirst,
   CircleX,
   Menu,
   PanelLeft,
@@ -17,7 +16,6 @@ import { cn } from "./lib/utils";
 import { Document } from "./pages/Document";
 import { Documents } from "./pages/Documents";
 import { Prueba } from "./pages/Prueba";
-import { Dialog } from "./components/ui/dialog";
 
 export const App = () => {
   const [foulders] = useState<Foulder[]>(initialFoulders);
@@ -30,12 +28,12 @@ export const App = () => {
   const isMediumDevice = useMediaQuery(
     "only screen and (min-width : 769px) and (max-width : 992px)"
   );
-  const isLargeDevice = useMediaQuery(
+/*   const isLargeDevice = useMediaQuery(
     "only screen and (min-width : 993px) and (max-width : 1200px)"
   );
   const isExtraLargeDevice = useMediaQuery(
     "only screen and (min-width : 1201px)"
-  );
+  ); */
 
   const onChangeDocument = (id: Id, content: DocumentType["content"]) => {
     setDocs(

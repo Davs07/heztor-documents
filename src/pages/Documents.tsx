@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
-import UserOptions from "@/sections/UserOptions";
 import { ChevronDown, Folder, LayoutGrid } from "lucide-react";
 import { Document, Foulder } from "types";
 
@@ -29,11 +27,6 @@ export const Documents = (props: Props) => {
             <LayoutGrid />
             <p>Cambiar vista</p>
           </button>
-
-          <Button>
-            <UserOptions/>
-          </Button> 
-          
         </div>
       </div>
 
@@ -44,7 +37,9 @@ export const Documents = (props: Props) => {
 
         <div className="w-full h-max place-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {foulders.map((foulder) => (
-            <Card className="w-[180px] h-[90px]  hover:shadow-lg cursor-pointer rounded-2xl">
+            <Card
+              key={foulder.id}
+              className="w-[180px] h-[90px]  hover:shadow-lg cursor-pointer rounded-2xl">
               <CardHeader
                 key={foulder.id}
                 className="h-full w-full flex flex-row justify-start items-center gap-3">
@@ -72,6 +67,7 @@ export const Documents = (props: Props) => {
         <div className="w-full h-max place-items-center grid  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
           {documents.map((document, index) => (
             <Card
+              key={document.id}
               className={`group w-[250px] h-[120px] flex flex-col  hover:shadow-lg cursor-pointer rounded-2xl overflow-hidden transition-all duration-1000`}>
               <CardHeader
                 key={document.id}

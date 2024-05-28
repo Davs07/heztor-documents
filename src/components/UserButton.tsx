@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useEffect, useState } from "react";
 import { User } from "@/api/types";
 import { getUser } from "@/hooks/useUser";
@@ -63,7 +62,7 @@ function UserButton() {
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
         <Button variant={"none"} className="rounded-xl">
           <img
@@ -74,7 +73,7 @@ function UserButton() {
           <span className="ml-2">{user.login}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 z-[9] ">
+      <DropdownMenuContent className="w-56 z-[9] text-primary dark rounded-xl">
         <DropdownMenuLabel>{user.login}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
