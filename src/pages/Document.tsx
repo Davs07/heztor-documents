@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Editor } from "@/sections/Editor";
-import { Document as DocumentType, Id } from "@/types";
+import { Document as DocumentType, Id } from "types";
 
 interface Props {
   initialDocument: DocumentType;

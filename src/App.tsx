@@ -9,7 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import { initialDocuments } from "./api/documents";
 import { initialFoulders } from "./api/foulders";
 import { Documents } from "./pages/Documents";
-import { Document as DocumentType, Foulder, Id } from "./types";
+import { Document as DocumentType, Foulder, Id } from "../types";
 import { Sidebar } from "./components/Sidebar";
 import { Document } from "./pages/Document";
 import { useMediaQuery } from "@uidotdev/usehooks";

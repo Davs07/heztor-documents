@@ -1,6 +1,6 @@
 import { Card, CardHeader } from "@/components/ui/card";
 import { ChevronDown, Folder, LayoutGrid } from "lucide-react";
-import { Document, Foulder } from "../types";
+import { Document, Foulder } from "types";
 
 interface Props {
   foulders: Foulder[];

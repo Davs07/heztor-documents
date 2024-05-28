@@ -1,4 +1,4 @@
-import { Foulder } from "../types";
+import { Foulder } from "types";
 
 export const initialFoulders: Foulder[] = [
   {
