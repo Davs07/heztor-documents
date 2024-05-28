@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@uidotdev/usehooks";
 import {
   BetweenHorizontalEnd,
   ChevronFirst,
@@ -6,15 +7,14 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { Document as DocumentType, Foulder, Id } from "../types";
 import { initialDocuments } from "./api/documents";
 import { initialFoulders } from "./api/foulders";
-import { Documents } from "./pages/Documents";
-import { Document as DocumentType, Foulder, Id } from "../types";
 import { Sidebar } from "./components/Sidebar";
-import { Document } from "./pages/Document";
-import { useMediaQuery } from "@uidotdev/usehooks";
-import { cn } from "./lib/utils";
 import { Button } from "./components/ui/button";
+import { cn } from "./lib/utils";
+import { Document } from "./pages/Document";
+import { Documents } from "./pages/Documents";
 
 export const App = () => {
   const [foulders] = useState<Foulder[]>(initialFoulders);
@@ -46,7 +46,7 @@ export const App = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 dark ">
+    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4  dark">
       {/* Sidebar */}
       <div
         className={cn(
@@ -80,7 +80,7 @@ export const App = () => {
         )}>
         {openSidebar && (
           <ChevronFirst
-            className="m-4 cursor-pointer"
+            className="absolute z-[999] m-4 left-64 cursor-pointer"
             onClick={() => setOpenSidebar(false)}
           />
         )}

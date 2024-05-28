@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import { getUser } from "@/hooks/useUser";
 import { User } from "@/api/types";
+import { getUser } from "@/hooks/useUser";
+import { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 function UserButton() {
   const [user, setUser] = useState<User | null>(null);
@@ -31,7 +31,16 @@ function UserButton() {
     return <div>User not found</div>;
   }
 
-  return <Button></Button>;
+  return (
+    <Button variant={"none"} className="rounded-xl">
+      <img
+        src={user.avatar_url}
+        alt={user.login}
+        className="w-8 h-8 rounded-full"
+      />
+      <span className="ml-2">{user.login}</span>
+    </Button>
+  );
 }
 
 export default UserButton;
