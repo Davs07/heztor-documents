@@ -32,6 +32,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import ConfigurationModal from "@/sections/ConfigurationModal";
+import ConfigComponent from "@/sections/Navbar/ConfigComponent";
 
 function UserButton() {
   const [user, setUser] = useState<User | null>(null);
@@ -108,6 +109,8 @@ function UserButton() {
                 <DialogTitle>Configuración</DialogTitle>
                 <DialogDescription>
                   Aquí puedes ajustar tu configuración.
+
+                  <ConfigComponent/>
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

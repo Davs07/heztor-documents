@@ -12,6 +12,8 @@ import { Document } from "./pages/Document";
 import { Documents } from "./pages/Documents";
 import { Prueba } from "./pages/Prueba";
 
+import themes from "./lib/data/config/themes";
+
 export const App = () => {
   const [foulders] = useState<Foulder[]>(initialFoulders);
   const [docs, setDocs] = useState<DocumentType[]>(initialDocuments);
@@ -61,7 +63,7 @@ export const App = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 dark theme-1">
+    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 ">
       {/* Sidebar */}
       <div
         className={cn(
