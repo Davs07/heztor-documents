@@ -15,7 +15,7 @@ export const Documents = (props: Props) => {
       {/* Header */}
       <div className="flex justify-between w-full  md:items-end flex-col md:flex-row ">
         <div className="text-start">
-          <h3 className="text-3xl font-semibold">Documents</h3>
+          <h3 className="text-3xl font-semibold text-main">Documents</h3>
           <p>Todos tus ideas y anotaciones en un solo espacio</p>
         </div>
         <div className="flex gap-3">

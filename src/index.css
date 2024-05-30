@@ -35,6 +35,28 @@
     --radius: 0.5rem;
   }
 
+  /*Temas de colores*/
+
+  .theme-1 {
+    /* Blue Orchid */
+    --main: 233 100% 57%;
+  }
+
+  .theme-2 {
+    /* poison green */
+    --main: 113 100% 57%;
+  }
+
+  .theme-3 {
+    /* yellowy green */
+    --main: 72 91% 55%;
+  }
+
+  .theme-4 {
+    /* french rose */
+    --main: 342 97% 62%;
+  }
+
   .dark {
     --background: 232 67% 8%;
     --foreground: 210 40% 98%;

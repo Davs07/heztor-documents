@@ -1,11 +1,6 @@
 import { useMediaQuery } from "@uidotdev/usehooks";
-import {
-  BetweenHorizontalEnd,
-  CircleX,
-  Menu,
-  PanelLeft,
-} from "lucide-react";
-import { useState } from "react";
+import { BetweenHorizontalEnd, CircleX, Menu, PanelLeft } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Document as DocumentType, Foulder, Id } from "../types";
 import { initialDocuments } from "./api/documents";
@@ -28,12 +23,31 @@ export const App = () => {
   const isMediumDevice = useMediaQuery(
     "only screen and (min-width : 769px) and (max-width : 992px)"
   );
-/*   const isLargeDevice = useMediaQuery(
-    "only screen and (min-width : 993px) and (max-width : 1200px)"
-  );
-  const isExtraLargeDevice = useMediaQuery(
-    "only screen and (min-width : 1201px)"
-  ); */
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState("theme-1");
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    document.documentElement.classList.remove(
+      "theme-1",
+      "theme-2",
+      "theme-3",
+      "theme-4"
+    );
+    document.documentElement.classList.add(theme);
+  }, [theme]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const changeTheme = (newTheme: string) => {
+    setTheme(newTheme);
+  };
 
   const onChangeDocument = (id: Id, content: DocumentType["content"]) => {
     setDocs(
@@ -47,7 +61,7 @@ export const App = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 dark ">
+    <div className="relative w-screen h-screen min-h-screen overflow-x-hidden flex flex-row bg-background text-primary overflow-y-auto px-4 dark theme-1">
       {/* Sidebar */}
       <div
         className={cn(
