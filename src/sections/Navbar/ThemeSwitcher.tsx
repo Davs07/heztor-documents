@@ -1,28 +1,34 @@
-// src/components/ThemeSwitcher.jsx
-import React, { useState, useEffect } from "react";
-import themes from "@/lib/data/config/themes";
+import React from "react";
+import useThemeStore from "@/hooks/useThemeStore"; // Ajusta la ruta según tu estructura de proyecto
 
 const ThemeSwitcher = () => {
-  const [theme, setTheme] = useState("theme-1");
-
-  const root = window.document.documentElement;
-
-  useEffect(() => {
-    themes.forEach((t) => root.classList.remove(t.id));
-    root.classList.add(theme);
-  }, [theme]);
+  const { theme, isDarkMode, themes, toggleDarkMode, changeTheme } =
+    useThemeStore();
 
   return (
-    <div className="space-x-2">
-      {themes.map((t) => (
+    <div className="min-h-max bg-background text-foreground flex flex-col gap-6">
+      <div className="flex flex-col gap-3">
+        <h5>Modo</h5>
         <button
-          key={t.id}
-          onClick={() => setTheme(t.id)}
-          className={`m-4 p-2 rounded bg-main text-white`}
-          style={{ backgroundColor: `hsl(${t.main})` }}>
-          {t.name}
+          onClick={toggleDarkMode}
+          className="m-4 p-2 bg-primary-foreground text-primary rounded">
+          Toggle Dark/Light
         </button>
-      ))}
+      </div>
+      <div className="flex flex-col gap-3">
+        <h5>Tema</h5>
+        <div className="grid-2">
+          {themes.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => changeTheme(t.id)}
+              className={`m-4 p-2 rounded bg-main text-white`}
+              style={{ backgroundColor: `hsl(${t.main})` }}>
+              {t.name}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
