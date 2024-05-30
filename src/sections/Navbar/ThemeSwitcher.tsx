@@ -1,6 +1,8 @@
 import React from "react";
 import useThemeStore from "@/hooks/useThemeStore"; // Ajusta la ruta según tu estructura de proyecto
 import themes, { Theme } from "@/lib/data/config/themes";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 const ThemeSwitcher = () => {
   const { theme, isDarkMode, toggleDarkMode, changeTheme } = useThemeStore();
@@ -35,25 +37,28 @@ const ThemeSwitcher = () => {
         <h5>Tema</h5>
         <div className="grid grid-cols-2 gap-4 w-full max-w-[540px]">
           {themes.map((t) => (
-            <div
+            <Card
               key={t.id}
               onClick={() => changeTheme(t.id)}
-              className="w-full h-max gap-4 border-4 rounded-lg border-input bg-background grid grid-cols-2 place-items-center p-6 cursor-pointer">
+              className={cn(
+                "w-full h-max gap-4 border-4 rounded-lg border-input bg-background grid grid-cols-2 place-items-center p-6 cursor-pointer",
+                theme === t.id && "border-primary"
+              )}>
               <h6
-                className=""
+                className="font-semibold"
                 style={{
                   color: `hsl(${t.main})`,
                 }}>
                 {t.name}
               </h6>
-              <div className="w-12 h-8 bg-card rounded-lg"></div>
-              <div className=" w-12 h-8 bg-card rounded-lg"></div>
-              <div
-                className={`w-12 h-8 rounded text-primary`}
+              <Card className="w-12 h-8 bg-card rounded-lg"></Card>
+              <Card className=" w-12 h-8 bg-card rounded-lg"></Card>
+              <Card
+                className={`w-12 h-8 rounded-lg text-primary`}
                 style={{ backgroundColor: `hsl(${t.main})` }}>
                 {/* {t.name} */}
-              </div>
-            </div>
+              </Card>
+            </Card>
           ))}
         </div>
       </div>
