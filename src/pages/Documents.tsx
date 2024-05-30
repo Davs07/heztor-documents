@@ -1,4 +1,5 @@
 import { Card, CardHeader } from "@/components/ui/card";
+import { Text } from "@/components/ui/custom/text";
 import { ChevronDown, Folder, LayoutGrid } from "lucide-react";
 import { Document, Foulder } from "types";
 
@@ -14,9 +15,11 @@ export const Documents = (props: Props) => {
     <div className="m-auto w-full h-full max-w-[calc(1200px+8px)] flex items-center justify-start text-center flex-col gap-12 py-4 px-4 overflow-y-auto">
       {/* Header */}
       <div className="flex justify-between w-full  md:items-end flex-col md:flex-row ">
-        <div className="text-start">
-          <h3 className="text-3xl font-semibold text-main">Documents</h3>
-          <p>Todos tus ideas y anotaciones en un solo espacio</p>
+        <div className="text-start flex flex-col">
+          <Text variant={"h1"}>Documents</Text>
+          <Text variant={"pbase"}>
+            Todas tus ideas y anotaciones en un solo espacio
+          </Text>
         </div>
         <div className="flex gap-3">
           <button className="btn btn-primary flex flex-row">
