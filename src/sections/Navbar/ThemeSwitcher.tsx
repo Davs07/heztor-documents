@@ -38,13 +38,21 @@ const ThemeSwitcher = () => {
             <div
               key={t.id}
               onClick={() => changeTheme(t.id)}
-              className="w-full h-max border-4 rounded-lg border-input bg-background">
-              <div className="w-12 h-8 bg-card"></div>
-              <button
-                className={`m-4 p-2 rounded text-primary`}
-                style={{ backgroundColor: `hsl(${t.main})` }}>
+              className="w-full h-max gap-4 border-4 rounded-lg border-input bg-background grid grid-cols-2 place-items-center p-6 cursor-pointer">
+              <h6
+                className=""
+                style={{
+                  color: `hsl(${t.main})`,
+                }}>
                 {t.name}
-              </button>
+              </h6>
+              <div className="w-12 h-8 bg-card rounded-lg"></div>
+              <div className=" w-12 h-8 bg-card rounded-lg"></div>
+              <div
+                className={`w-12 h-8 rounded text-primary`}
+                style={{ backgroundColor: `hsl(${t.main})` }}>
+                {/* {t.name} */}
+              </div>
             </div>
           ))}
         </div>

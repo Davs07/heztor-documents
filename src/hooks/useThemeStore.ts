@@ -1,11 +1,10 @@
 import { create } from "zustand";
-import themes, { Theme } from "@/lib/data/config/themes";
+import themes from "@/lib/data/config/themes";
 import { persist } from "zustand/middleware";
 
 interface ThemeState {
   theme: string;
   isDarkMode: boolean;
-  themes: Theme[];
   toggleDarkMode: () => void;
   changeTheme: (newTheme: string) => void;
 }
@@ -15,7 +14,6 @@ const useThemeStore = create(
     (set) => ({
       theme: "theme-1",
       isDarkMode: false,
-      themes,
       toggleDarkMode: () =>
         set((state) => {
           const newDarkMode = !state.isDarkMode;
