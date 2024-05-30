@@ -16,7 +16,7 @@ export const Documents = (props: Props) => {
       {/* Header */}
       <div className="flex justify-between w-full  md:items-end flex-col md:flex-row ">
         <div className="text-start flex flex-col">
-          <Text variant={"h1"}>Documents</Text>
+          <Text variant={"h2"}>Documents</Text>
           <Text variant={"pbase"}>
             Todas tus ideas y anotaciones en un solo espacio
           </Text>
@@ -24,11 +24,11 @@ export const Documents = (props: Props) => {
         <div className="flex gap-3">
           <button className="btn btn-primary flex flex-row">
             <ChevronDown />
-            <p>Esta semana</p>
+            <Text variant={"pbase"}>Esta semana</Text>
           </button>
           <button className="btn btn-primary flex flex-row">
             <LayoutGrid />
-            <p>Cambiar vista</p>
+            <Text variant={"pbase"}>Vista</Text>
           </button>
         </div>
       </div>
@@ -36,7 +36,7 @@ export const Documents = (props: Props) => {
       {/* Content */}
 
       <div className="flex w-full flex-col items-start gap-6">
-        <h4 className="text-2xl">Carpetas</h4>
+        <Text variant={"h4"}>Carpetas</Text>
 
         <div className="w-full h-max place-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {foulders.map((foulder) => (
@@ -66,7 +66,8 @@ export const Documents = (props: Props) => {
         </div>
       </div>
       <div className="flex w-full flex-col items-start gap-6">
-        <h4 className="text-2xl">Documentos</h4>
+      <Text variant={"h4"}>Documentos</Text>
+        
         <div className="w-full h-max place-items-center grid  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
           {documents.map((document, index) => (
             <Card

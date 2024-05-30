@@ -8,13 +8,14 @@ const textVariants = cva(
   {
     variants: {
       variant: {
-        h1: "text-4xl font-bold text-main",
-        h2: "text-3xl font-semibold text-secondary",
-        h3: "text-2xl font-medium text-accent",
-        h4: "text-xl font-medium text-muted",
-        plg: "text-lg font-normal text-primary-foreground",
+        h1: "text-5xl font-bold text-main",
+        h2: "text-4xl font-semibold text-main",
+        h3: "text-3xl font-medium text-primary",
+        h4: "text-2xl font-medium text-muted-foreground",
+        h5: "text-xl font-medium text-muted-foreground",
+        plg: "text-lg font-normal text-main",
         pbase: "text-base font-normal text-secondary-foreground",
-        pmd: "text-base font-light text-muted-foreground",
+        pmd: "text-base font-light text-primary",
         psm: "text-sm font-light text-muted-foreground",
         pxs: "text-xs font-light text-muted-foreground",
       },
