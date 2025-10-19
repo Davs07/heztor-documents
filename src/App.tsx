@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { BetweenHorizontalEnd, CircleX, Menu, PanelLeft } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Route, Routes, useParams } from "react-router-dom";
 import { Document as DocumentType, Foulder, Id } from "../types";
 import { initialDocuments } from "./api/documents";
 import { initialFoulders } from "./api/foulders";
@@ -12,11 +12,58 @@ import { Document } from "./pages/Document";
 import { Documents } from "./pages/Documents";
 import { Prueba } from "./pages/Prueba";
 
-import themes from "./lib/data/config/themes";
+// Componente wrapper para manejar la ruta dinámica del documento
+const DocumentWrapper = ({
+  documents,
+  onChangeDocument,
+  onUpdateDocumentName,
+}: {
+  documents: DocumentType[];
+  onChangeDocument: (id: Id, content: DocumentType["content"]) => void;
+  onUpdateDocumentName: (id: Id, name: string) => void;
+}) => {
+  const { id } = useParams<{ id: string }>();
+  const documentId = id ? (isNaN(Number(id)) ? id : Number(id)) : null;
+  const document = documents.find((doc) => doc.id === documentId);
+
+  if (!document) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p>Documento no encontrado</p>
+      </div>
+    );
+  }
+
+  return (
+    <Document
+      onChangeDocument={onChangeDocument}
+      onUpdateDocumentName={onUpdateDocumentName}
+      initialDocument={document}
+    />
+  );
+};
 
 export const App = () => {
   const [foulders] = useState<Foulder[]>(initialFoulders);
-  const [docs, setDocs] = useState<DocumentType[]>(initialDocuments);
+  
+  // Cargar documentos desde localStorage o usar los iniciales
+  const [docs, setDocs] = useState<DocumentType[]>(() => {
+    const savedDocs = localStorage.getItem("heztor-documents");
+    if (savedDocs) {
+      try {
+        return JSON.parse(savedDocs);
+      } catch (error) {
+        console.error("Error parsing saved documents:", error);
+        return initialDocuments;
+      }
+    }
+    return initialDocuments;
+  });
+
+  // Guardar documentos en localStorage cuando cambien
+  useEffect(() => {
+    localStorage.setItem("heztor-documents", JSON.stringify(docs));
+  }, [docs]);
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -25,31 +72,6 @@ export const App = () => {
   const isMediumDevice = useMediaQuery(
     "only screen and (min-width : 769px) and (max-width : 992px)"
   );
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [theme, setTheme] = useState("theme-1");
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
-
-  useEffect(() => {
-    document.documentElement.classList.remove(
-      "theme-1",
-      "theme-2",
-      "theme-3",
-      "theme-4"
-    );
-    document.documentElement.classList.add(theme);
-  }, [theme]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  const changeTheme = (newTheme: string) => {
-    setTheme(newTheme);
-  };
 
   const onChangeDocument = (id: Id, content: DocumentType["content"]) => {
     setDocs(
@@ -60,6 +82,30 @@ export const App = () => {
         return document;
       })
     );
+  };
+
+  const onUpdateDocumentName = (id: Id, name: string) => {
+    setDocs(
+      docs.map((document) => {
+        if (document.id === id) {
+          return { ...document, name: name };
+        }
+        return document;
+      })
+    );
+  };
+
+  const onCreateDocument = () => {
+    const newId = Math.max(...docs.map((d) => Number(d.id))) + 1;
+    const newDocument: DocumentType = {
+      id: newId,
+      name: "Sin título",
+      content: undefined,
+      foulderId: 1, // Por defecto a Inbox
+      isFavourite: false,
+    };
+    setDocs([...docs, newDocument]);
+    return newId;
   };
 
   return (
@@ -91,18 +137,22 @@ export const App = () => {
       <aside
         onBlur={() => setOpenMenu(false)}
         className={cn(
-          "relative top-0 left-0 h-full bg-card transition-transform transform duration-300 z-[9]  max-w-xs w-full",
+          "relative top-0 left-0 h-full bg-card border-r border-border transition-transform transform duration-300 z-[9] max-w-xs w-full shadow-sm",
           openSidebar ? "translate-x-0" : "hidden ",
-          isMediumDevice || isSmallDevice ? "fixed " : "translate-x-[-5%]"
+          isMediumDevice || isSmallDevice ? "fixed shadow-lg" : "translate-x-[-5%]"
         )}>
-        {openSidebar && (
+        {openSidebar && isMediumDevice || isSmallDevice && (
           <PanelLeft
             width={24}
-            className="absolute z-[999] m-4 left-64 cursor-pointer"
+            className="absolute z-[999] m-4 left-64 cursor-pointer hover:text-primary transition-colors"
             onClick={() => setOpenSidebar(false)}
           />
         )}
-        <Sidebar />
+        <Sidebar 
+          foulders={foulders} 
+          documents={docs} 
+          onCreateDocument={onCreateDocument}
+        />
       </aside>
 
       {/* Main content */}
@@ -114,11 +164,12 @@ export const App = () => {
           />
           <Route path="/prueba" element={<Prueba />} />
           <Route
-            path="/document"
+            path="/document/:id"
             element={
-              <Document
+              <DocumentWrapper
+                documents={docs}
                 onChangeDocument={onChangeDocument}
-                initialDocument={docs[1]}
+                onUpdateDocumentName={onUpdateDocumentName}
               />
             }
           />

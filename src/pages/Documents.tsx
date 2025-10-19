@@ -1,7 +1,9 @@
 import { Card, CardHeader } from "@/components/ui/card";
 import { Text } from "@/components/ui/custom/text";
 import { ChevronDown, Folder, LayoutGrid } from "lucide-react";
-import { Document, Foulder } from "types";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Document, Foulder, Id } from "types";
 
 interface Props {
   foulders: Foulder[];
@@ -10,6 +12,13 @@ interface Props {
 
 export const Documents = (props: Props) => {
   const { foulders, documents } = props;
+  const navigate = useNavigate();
+  const [selectedFolderId, setSelectedFolderId] = useState<Id | null>(null);
+
+  // Filtrar documentos por carpeta seleccionada
+  const filteredDocuments = selectedFolderId
+    ? documents.filter((doc) => doc.foulderId === selectedFolderId)
+    : documents;
 
   return (
     <div className="m-auto w-full h-full max-w-[calc(1200px+8px)] flex items-center justify-start text-center flex-col gap-12 py-4 px-4 overflow-y-auto">
@@ -42,9 +51,13 @@ export const Documents = (props: Props) => {
           {foulders.map((foulder) => (
             <Card
               key={foulder.id}
-              className="w-[180px] h-[90px]  hover:shadow-lg cursor-pointer rounded-2xl">
+              onClick={() => setSelectedFolderId(foulder.id)}
+              className={`w-[180px] h-[90px] hover:shadow-lg cursor-pointer rounded-2xl transition-all ${
+                selectedFolderId === foulder.id
+                  ? "ring-2 ring-primary shadow-lg"
+                  : ""
+              }`}>
               <CardHeader
-                key={foulder.id}
                 className="h-full w-full flex flex-row justify-start items-center gap-3">
                 <div className="h-full items-center w-max flex justify-center ">
                   <Folder size={32} />
@@ -66,15 +79,24 @@ export const Documents = (props: Props) => {
         </div>
       </div>
       <div className="flex w-full flex-col items-start gap-6">
-      <Text variant={"h4"}>Documentos</Text>
-        
+        <div className="flex justify-between items-center w-full">
+          <Text variant={"h4"}>Documentos</Text>
+          {selectedFolderId && (
+            <button
+              onClick={() => setSelectedFolderId(null)}
+              className="text-sm text-primary hover:underline">
+              Ver todos
+            </button>
+          )}
+        </div>
+
         <div className="w-full h-max place-items-center grid  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-          {documents.map((document, index) => (
+          {filteredDocuments.map((document, index) => (
             <Card
               key={document.id}
+              onClick={() => navigate(`/document/${document.id}`)}
               className={`group w-[250px] h-[120px] flex flex-col  hover:shadow-lg cursor-pointer rounded-2xl overflow-hidden transition-all duration-1000`}>
               <CardHeader
-                key={document.id}
                 className={`bg-gradient-${
                   index + 1
                 }00 h-full group-hover:h-16 `}></CardHeader>

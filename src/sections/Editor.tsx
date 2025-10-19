@@ -2,8 +2,7 @@ import "@blocknote/core/fonts/inter.css";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
-import { useState } from "react";
-import { Document as DocumentType, Id } from "@/types";
+import { Document as DocumentType, Id } from "../../types";
 import { PartialBlock } from "@blocknote/core";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
@@ -13,13 +12,8 @@ interface Props {
 }
 
 export const Editor = ({ initialDocument, onChangeDocument }: Props) => {
-  // Stores the editor's contents as Markdown.
-  const [markdown, setMarkdown] = useState<string>("");
-
   // Creates a new editor instance with some initial content.
-  const initialContent = initialDocument.content?.map((content) => ({
-    content,
-  })) as PartialBlock[];
+  const initialContent = initialDocument.content as PartialBlock[] | undefined;
 
   const editor = useCreateBlockNote({
     initialContent,
@@ -42,8 +36,7 @@ export const Editor = ({ initialDocument, onChangeDocument }: Props) => {
 
   const onChange = async () => {
     // Converts the editor's contents from Block objects to Markdown and store to state.
-    const markdown = await editor.blocksToMarkdownLossy(editor.document);
-    setMarkdown(markdown);
+    await editor.blocksToMarkdownLossy(editor.document);
     console.log(editor.document.map((block) => block.content));
     console.log(typeof Array(editor.document));
     onChangeDocument(initialDocument.id, editor.document);
@@ -52,33 +45,54 @@ export const Editor = ({ initialDocument, onChangeDocument }: Props) => {
   const customTheme = {
     colors: {
       editor: {
-        text: "primary",
-        background: "foreground",
+        text: "hsl(var(--background))",
+        background: "hsl(var(--foreground))",
       },
       menu: {
-        text: "primary",
-        background: "--background",
+        text: "hsl(var(--foreground))",
+        background: "hsl(var(--card))",
       },
       tooltip: {
-        text: "",
-        background: "",
+        text: "hsl(var(--foreground))",
+        background: "hsl(var(--card))",
       },
       hovered: {
-        text: "",
-        background: "",
+        text: "hsl(var(--foreground))",
+        background: "hsl(var(--accent))",
       },
       selected: {
-        text: "",
-        background: "",
+        text: "hsl(var(--accent-foreground))",
+        background: "hsl(var(--accent))",
       },
       disabled: {
-        text: "",
-        background: "",
+        text: "hsl(var(--muted-foreground))",
+        background: "hsl(var(--muted))",
       },
       shadow: "0 1px 3px rgba(0, 0, 0, 0.2)",
-      border: "#ddd",
-      sideMenu: "#2c3e50",
-      highlights: {},
+      border: "hsl(var(--border))",
+      sideMenu: "hsl(var(--card))",
+      highlights: {
+        gray: {
+          text: "hsl(var(--foreground))",
+          background: "hsl(var(--muted))",
+        },
+        blue: {
+          text: "hsl(220, 90%, 20%)",
+          background: "hsl(220, 90%, 90%)",
+        },
+        red: {
+          text: "hsl(0, 90%, 20%)",
+          background: "hsl(0, 90%, 90%)",
+        },
+        yellow: {
+          text: "hsl(45, 90%, 20%)",
+          background: "hsl(45, 90%, 90%)",
+        },
+        green: {
+          text: "hsl(120, 90%, 20%)",
+          background: "hsl(120, 90%, 90%)",
+        },
+      },
     },
     borderRadius: 12,
     fontFamily: "Inter, sans-serif",

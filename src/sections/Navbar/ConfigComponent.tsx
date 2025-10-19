@@ -1,4 +1,3 @@
-import themes from "@/lib/data/config/themes";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 type Props = {};

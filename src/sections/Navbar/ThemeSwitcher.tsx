@@ -1,11 +1,10 @@
-import React from "react";
-import useThemeStore from "@/hooks/useThemeStore"; // Ajusta la ruta según tu estructura de proyecto
-import themes, { Theme } from "@/lib/data/config/themes";
+import useThemeStore from "@/hooks/useThemeStore";
+import themes from "@/lib/data/config/themes";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 const ThemeSwitcher = () => {
-  const { theme, isDarkMode, toggleDarkMode, changeTheme } = useThemeStore();
+  const { theme, toggleDarkMode, changeTheme } = useThemeStore();
 
   return (
     <div className="min-h-max bg-background text-foreground flex flex-col gap-6">
